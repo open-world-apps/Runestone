@@ -16,36 +16,84 @@
     <Filter Include="Source Files\entities">
       <UniqueIdentifier>{9199e182-77f4-4514-b969-b2a70318fe5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\components">
+      <UniqueIdentifier>{800b37bf-4cde-44aa-92a7-75dadfe7fcbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\systems">
+      <UniqueIdentifier>{56bf5faf-de1e-4340-bb9f-606b5ea2093e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{d713a1d5-8fa6-47f6-9436-52d9ab88bac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\abstracts">
+      <UniqueIdentifier>{22fb1d7b-53e9-443a-ac09-98f7817706e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{a813b321-47ed-49c0-b808-99e389ed1dec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="runestone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
+    <ClCompile Include="info_box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\definitions\entities\character.cpp">
       <Filter>Source Files\entities</Filter>
     </ClCompile>
-    <ClCompile Include="user.cpp">
+    <ClCompile Include="src\definitions\entities\item.cpp">
       <Filter>Source Files\entities</Filter>
     </ClCompile>
-    <ClCompile Include="object.cpp">
+    <ClCompile Include="src\definitions\entities\player.cpp">
       <Filter>Source Files\entities</Filter>
     </ClCompile>
-    <ClCompile Include="character.cpp">
+    <ClCompile Include="src\definitions\entities\user.cpp">
       <Filter>Source Files\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\definitions\systems\json.cpp">
+      <Filter>Source Files\systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="user.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
+    <ClInclude Include="resource1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
+      <Filter>Header Files\abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\json.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\game\character.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="headers\game\player.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
+    <ClInclude Include="headers\game\user.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\game\item.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\abstracts\json_rw_base.h">
+      <Filter>Header Files\abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\abstracts\info_box.h">
+      <Filter>Header Files\abstracts</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="design_notes.md" />
+    <None Include="src\res\entities.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\res\session.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

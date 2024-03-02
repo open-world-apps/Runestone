@@ -27,6 +27,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <LanguageStandard>stdcpp20</LanguageStandard>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
@@ -104,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,19 +129,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="character.cpp" />
-    <ClCompile Include="object.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="runestone.cpp" />
-    <ClCompile Include="user.cpp" />
+    <ClCompile Include="info_box.cpp" />
+    <ClCompile Include="runestone.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Default</CompileAs>
+      <EnableModules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableModules>
+    </ClCompile>
+    <ClCompile Include="src\definitions\entities\character.cpp" />
+    <ClCompile Include="src\definitions\entities\item.cpp" />
+    <ClCompile Include="src\definitions\entities\player.cpp" />
+    <ClCompile Include="src\definitions\entities\user.cpp" />
+    <ClCompile Include="src\definitions\systems\json.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="character.h" />
+    <ClInclude Include="headers\abstracts\info_box.h" />
+    <ClInclude Include="headers\abstracts\json_rw_base.h" />
+    <ClInclude Include="headers\game\character.h" />
+    <ClInclude Include="headers\game\item.h" />
+    <ClInclude Include="headers\game\player.h" />
+    <ClInclude Include="headers\game\user.h" />
+    <ClInclude Include="headers\utils\json.h" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="user.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="design_notes.md" />
+    <None Include="src\res\entities.json" />
+    <None Include="src\res\session.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
