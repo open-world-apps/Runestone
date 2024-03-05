@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "../abstracts/object.h"
+#include <runestone/base/object.h>
 
 class Item : public Object
 {
