@@ -106,6 +106,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\runestone\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,11 +130,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="info_box.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="runestone.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Default</CompileAs>
       <EnableModules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableModules>
     </ClCompile>
+    <ClCompile Include="src\definitions\components\info_box.cpp" />
     <ClCompile Include="src\definitions\entities\character.cpp" />
     <ClCompile Include="src\definitions\entities\item.cpp" />
     <ClCompile Include="src\definitions\entities\player.cpp" />
@@ -141,19 +143,19 @@
     <ClCompile Include="src\definitions\systems\json.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\abstracts\info_box.h" />
-    <ClInclude Include="headers\abstracts\json_rw_base.h" />
-    <ClInclude Include="headers\game\character.h" />
-    <ClInclude Include="headers\game\item.h" />
-    <ClInclude Include="headers\game\player.h" />
-    <ClInclude Include="headers\game\user.h" />
-    <ClInclude Include="headers\utils\json.h" />
-    <ClInclude Include="object.h" />
+    <ClInclude Include="include\runestone\base\f_box.h" />
+    <ClInclude Include="include\runestone\base\object.h" />
+    <ClInclude Include="include\runestone\game\character.h" />
+    <ClInclude Include="include\runestone\game\components\inspection_panel.h" />
+    <ClInclude Include="include\runestone\game\item.h" />
+    <ClInclude Include="include\runestone\game\player.h" />
+    <ClInclude Include="include\runestone\game\user.h" />
+    <ClInclude Include="include\runestone\utils\json.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="design_notes.md" />
+    <None Include="notes.md" />
     <None Include="src\res\entities.json" />
     <None Include="src\res\session.json" />
   </ItemGroup>

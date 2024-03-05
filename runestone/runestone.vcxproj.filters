@@ -25,18 +25,18 @@
     <Filter Include="Header Files\utils">
       <UniqueIdentifier>{d713a1d5-8fa6-47f6-9436-52d9ab88bac2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\abstracts">
-      <UniqueIdentifier>{22fb1d7b-53e9-443a-ac09-98f7817706e2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\game">
       <UniqueIdentifier>{a813b321-47ed-49c0-b808-99e389ed1dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\components">
+      <UniqueIdentifier>{7edd5175-e9f9-4557-9202-abe6d3a85f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\base">
+      <UniqueIdentifier>{22fb1d7b-53e9-443a-ac09-98f7817706e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="runestone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="info_box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\definitions\entities\character.cpp">
@@ -51,49 +51,55 @@
     <ClCompile Include="src\definitions\entities\user.cpp">
       <Filter>Source Files\entities</Filter>
     </ClCompile>
+    <ClCompile Include="src\definitions\components\info_box.cpp">
+      <Filter>Source Files\components</Filter>
+    </ClCompile>
     <ClCompile Include="src\definitions\systems\json.cpp">
       <Filter>Source Files\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files\entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="object.h">
-      <Filter>Header Files\abstracts</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\utils\json.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\game\character.h">
-      <Filter>Header Files\game</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\game\player.h">
+    <ClInclude Include="include\runestone\base\f_box.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\runestone\base\object.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\runestone\game\components\inspection_panel.h">
+      <Filter>Header Files\game\components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\runestone\game\character.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="headers\game\user.h">
+    <ClInclude Include="include\runestone\game\item.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="headers\game\item.h">
+    <ClInclude Include="include\runestone\game\player.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="headers\abstracts\json_rw_base.h">
-      <Filter>Header Files\abstracts</Filter>
+    <ClInclude Include="include\runestone\game\user.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="headers\abstracts\info_box.h">
-      <Filter>Header Files\abstracts</Filter>
+    <ClInclude Include="include\runestone\utils\json.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="design_notes.md" />
     <None Include="src\res\entities.json">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="src\res\session.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="notes.md" />
   </ItemGroup>
 </Project>
