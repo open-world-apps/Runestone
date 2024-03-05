@@ -1,125 +1,27 @@
-#include "json.h"
-#include <algorithm>
+#include <runestone/utils/json.h>
+#include <format>
 
 using namespace std;
+using namespace json;
 using namespace rapidjson;
 
-static Document initDoc(string file)
+JsonRW::JsonRW() {}
+JsonRW::JsonRW(string file) : _doc(initDoc(file)), _query("game_data") {}
+
+Document& JsonRW::doc()
 {
-	ifstream i(file);
-	if (!i.is_open()) {
-		cerr << "Error" << endl;
-	}
-
-	string json((istreambuf_iterator<char>(i)), istreambuf_iterator<char>());
-
-	Document doc;
-	doc.Parse(json.c_str());
-
-	if (doc.HasParseError())
-	{
-		cerr << "Parse Error";
-	}
-
-	i.close();
-
-	return doc;
-};
-
-JsonRW::JsonRW(string file) : _doc(initDoc(file)), _file(file)
-{
-	PrettyWriter<StringBuffer> writer(_buffer);
-	_doc.Accept(writer);
+	return _doc;
 }
 
-string JsonRW::read() const
+string JsonRW::file() const
 {
-	return _buffer.GetString();
+	return _file;
 }
 
-int JsonRW::readInt()
-{
-	if (_v.IsInt())
-	{
-		return _v.GetInt();
-	}
-	else
-	{
-		cerr << "Value is not an integer." << endl;
-
-		return 1;
-	}
-}
-
-float JsonRW::readFloat()
-{
-	
-	if (_v.IsFloat() or _v.IsInt())
-	{
-		return _v.IsFloat() ? _v.GetFloat() : _v.GetInt();
-	}
-	else
-	{
-		cerr << "Value is not a float or an integer";
-
-		return 1;
-	}
-}
-
-bool JsonRW::readBool()
-{
-	if (_v.IsBool())
-	{
-		return _v.GetBool();
-	}
-	else if (_v.IsNull())
-	{
-		return false;
-	}
-	else
-	{
-		cerr << "Value is not bool." << endl;
-		return false;
-	}
-}
-
-string JsonRW::readString()
-{
-	if (_v.IsString()) {
-		return _v.GetString();
-	}
-	else {
-		cerr << "Value is not a string." << endl;
-
-		return "";
-	}
-}
-
-/**
- * Loads data from json to be manipulated.
- * 
- * \param query The data to load
- * \return The class instance
- */
-JsonRW& JsonRW::load(string query)
-{
-	_v = _doc[query.c_str()];
-	return *this;
-}
-
-void JsonRW::replace(string newVal)
-{
-	_v.SetString(newVal.c_str(), newVal.length());
-	write();
-}
-
-/**
- * Writes the data to file.
- * 
- */
 void JsonRW::write()
 {
-	Writer<StringBuffer> writer(_buffer);
+	StringBuffer buffer;
+	PrettyWriter<StringBuffer> writer(buffer);
 	_doc.Accept(writer);
 
 	ofstream o(_file);
@@ -127,74 +29,161 @@ void JsonRW::write()
 	o.close();
 }
 
-void JsonRW::increment()
+void JsonRW::replace(string newVal)
 {
-	if (_v.IsNumber())
-	{
-		if (_v.IsInt())
-		{
-			_v.SetInt(_v.GetInt() + 1);
-		}
-		else if (_v.IsFloat())
-		{
-			_v.SetFloat(_v.GetFloat() + 1);
-		}
-
-		write();
-	}
-	else {
-		cerr << "Value is not a number.";
-	}
-}
-
-void JsonRW::subtract()
-{
-	if (_v.IsNumber())
-	{
-		if (_v.IsInt())
-		{
-			_v.SetInt(_v.GetInt() - 1);
-		}
-		else if (_v.IsFloat())
-		{
-			_v.SetFloat(_v.GetFloat() + 1);
-		}
-
-		write();
-	}
-	else
-	{
-		cerr << "Value is not a number.";
-	}
+	Value& _data = _doc[_query.c_str()];
+	_data.SetString(newVal.c_str(), newVal.length());
+	write();
 }
 
 void JsonRW::replace(int newVal)
 {
-	if (_v.IsInt())
-	{
-		_v.SetInt(newVal);
-	}
-	else {
-		cerr << "Value is not an integer." << endl;
-	}
+	Value& _data = _doc[_query.c_str()];
+	_data.SetInt(newVal);
+	write();
 }
 
 void JsonRW::replace(float newVal)
 {
-	if (_v.IsFloat() or _v.IsInt())
+	Value& _data = _doc[_query.c_str()];
+	_data.SetFloat(newVal);
+	write();
+}
+
+void JsonRW::io()
+{
+	Value& _data = _doc[_query.c_str()];
+	
+	if (_data.IsBool())
 	{
-		_v.SetFloat(newVal);
+		_data.GetBool() == true 
+			? _data.SetBool(false)
+			: _data.SetBool(true);
 	}
 	else
-	{
-		cerr << "Value is not a float or integer." << endl;
+		cerr << "Value is not a bool." << endl;
+
+	write();
+}
+
+JsonRW& JsonRW::query(string query)
+{
+	_query = query;
+
+	return *this;
+}
+
+void JsonRW::math(int i)
+{
+	Value& _data = _doc[_query.c_str()];
+
+	if (_data.IsInt() or _data.IsFloat()) {
+		_data.IsInt()
+			? _data.SetInt(_data.GetInt() + i)
+			: _data.SetFloat(_data.GetFloat() + i);
+	}
+	else {
+		cerr << format("Data is incorrect data type: {}", _data) << endl;
 	}
 }
 
-/**
- * Reverses a bool value.
- */
-void JsonRW::io()
+void JsonRW::math(float f)
 {
-	_v.SetBool(_v.GetBool() == false ? true : false);
+	Value& _data = _doc[_query.c_str()];
+
+	if (_data.IsInt() or _data.IsFloat()) {
+		_data.IsFloat()
+			? _data.SetFloat(_data.GetFloat() + f)
+			: _data.SetFloat(_data.GetInt() + f);
+	}
+	else {
+		cerr << format("Data is incorrect data type: {}", _data) << endl;
+	}
+}
+
+void JsonRW::add(int i)
+{
+	math(i);
+}
+
+void JsonRW::add(float f)
+{
+	math(f);
+}
+
+void JsonRW::subtract(int i)
+{
+	math(-i);
+}
+
+void JsonRW::subtract(float f)
+{
+	math(-f);
+}
+
+void JsonRW::increment()
+{
+	math(1);
+}
+
+void JsonRW::decrement()
+{
+	math(-1);
+}
+
+string JsonRW::read()
+{
+	return buffer().GetString();
+}
+
+int JsonRW::readInt()
+{
+	Value& _data = _doc[_query.c_str()];
+
+	if (_data.IsInt())
+		return _data.GetInt();
+	else
+	{
+		cerr << format("Received data is not an int: {}", mappedTypes[_data.GetType()]) << endl;
+		return 1;
+	}
+}
+
+float JsonRW::readFloat()
+{
+	Value& _data = _doc[_query.c_str()];
+
+	if (_data.IsFloat())
+		return _data.GetFloat();
+	else
+	{
+		cerr << format("Received data is not a float: {}", mappedTypes[_data.GetType()]) << endl;
+		return 1;
+	}
+}
+
+string JsonRW::readString()
+{
+	Value& _data = _doc[_query.c_str()];
+
+	if (_data.IsString())
+		return _data.GetString();
+	else
+	{
+		cerr << format("Received data is not a string: {}", mappedTypes[_data.GetType()]) << endl;
+		return "false";
+	}
+}
+
+bool JsonRW::readBool()
+{
+	Value& _data = _doc[_query.c_str()];
+
+	if (_data.IsBool())
+		return _data.GetBool();
+	else
+	{
+		cerr << format("Received data is not a bool: {}", mappedTypes[_data.GetType()]) << endl;
+		return false;
+	}
 }
